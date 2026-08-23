@@ -1,9 +1,9 @@
 import '../models/user_profile.dart';
 
 /// ユーザー状態の読み書きを行うリポジトリのインターフェース。
-/// Phase1はローカル実装（[LocalUserRepository]）のみ。
-/// Firebase導入時はこのインターフェースを実装するFirestore版に差し替える。
+/// [uid] はFirebase AuthenticationのユーザーID（匿名認証を含む）。
+/// テスト・オフライン時は[LocalUserRepository]、本番は[FirestoreUserRepository]を使う。
 abstract class UserRepository {
-  Future<UserProfile> load();
-  Future<void> save(UserProfile profile);
+  Future<UserProfile> load(String uid);
+  Future<void> save(String uid, UserProfile profile);
 }

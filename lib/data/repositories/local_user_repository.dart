@@ -15,9 +15,9 @@ class LocalUserRepository implements UserRepository {
   static const _storageKey = 'user_profile_v1';
 
   @override
-  Future<UserProfile> load() async {
+  Future<UserProfile> load(String uid) async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getString(_storageKey);
+    final raw = prefs.getString('$_storageKey.$uid');
     if (raw == null) {
       return UserProfile.initial();
     }
@@ -26,9 +26,9 @@ class LocalUserRepository implements UserRepository {
   }
 
   @override
-  Future<void> save(UserProfile profile) async {
+  Future<void> save(String uid, UserProfile profile) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_storageKey, jsonEncode(_toJson(profile)));
+    await prefs.setString('$_storageKey.$uid', jsonEncode(_toJson(profile)));
   }
 
   Map<String, dynamic> _toJson(UserProfile profile) {

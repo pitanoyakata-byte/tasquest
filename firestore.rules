@@ -1,0 +1,22 @@
+rules_version = '2';
+
+// タスクエストのFirestoreセキュリティルール。
+// 画面仕様書0-1のデータモデルに基づき、各ユーザーは自分自身のドキュメント
+// （users/{uid} およびそのサブコレクション）にのみアクセスできる。
+// 運営提供クエストのマスタ（quests/{questId}）は全ユーザーが読み取りのみ可能。
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+
+    match /quests/{questId} {
+      allow read: if true;
+      allow write: if false; // 運営側からのみ更新（アプリからは書き込まない）
+    }
+  }
+}

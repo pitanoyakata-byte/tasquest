@@ -37,17 +37,48 @@ CLAUDE.mdの規約に基づき、作業のたびにここへ日時・やった�
 
 ### 次にやること（次回セッションの入り口）
 
-1. Firebaseプロジェクトを作成し（ユーザー側の作業。手順は下記「あなたにお願いしたいこと」参照）、`firebase_core`・`cloud_firestore`・`firebase_auth`を導入。`LocalUserRepository`と同じインターフェースを実装する`FirestoreUserRepository`を追加し、匿名認証でサインインする処理を足す。
-2. マイページ（ステータスタブ）・設定タブの雛形を追加し、下部タブバーで3画面を行き来できるようにする。
-3. クエストのクールタイム判定・広告ゲート（4件目以降）など、ホーム画面の未実装ロジックを足していく。
+1. Firestoreセキュリティルール（`firestore.rules`）をデプロイする（下記「あなたにお願いしたいこと」参照）。デプロイするまでは、アプリからFirestoreへの読み書きが全て拒否された状態のまま。
+2. デプロイ後、ノートPC側で`flutter run -d chrome`して、実際にFirestoreにデータが書き込まれるか確認（Firebaseコンソールの Firestore Database → データ タブで`users`コレクションにドキュメントができているか見る）。
+3. マイページ（ステータスタブ）・設定タブの雛形を追加し、下部タブバーで3画面を行き来できるようにする（ROADMAP.md Phase2）。
+4. クエストのクールタイム判定・広告ゲート（4件目以降）など、ホーム画面の未実装ロジックを足していく。
 
-### あなたにお願いしたいこと（Firebase関連・初心者向け手順）
+### あなたにお願いしたいこと（Firestoreセキュリティルールのデプロイ）
 
-1. https://console.firebase.google.com/ にアクセスし、Googleアカウントでログイン。
-2. 「プロジェクトを追加」から新規プロジェクトを作成（プロジェクト名は仮で「tasquest」等でOK、後から変更可）。
-3. 作成したプロジェクトで以下を有効化：
-   - Authentication → 「始める」→ Sign-in method タブで「匿名」を有効化
-   - Firestore Database → 「データベースの作成」→ 本番環境モード（あとでセキュリティルールは詰める）
-4. プロジェクトが作成できたら、そのプロジェクトIDを教えてください。次のセッションでFlutterアプリ側にFirebase連携（`flutterfire configure`相当の設定ファイル生成）を進めます。
+ノートPCのターミナルで、プロジェクトフォルダに移動してから以下を実行してください。
+
+```
+cd C:\src\tasquest
+firebase use tasquest-abbad
+firebase deploy --only firestore:rules
+```
+
+これでFirestoreのセキュリティルール（`firestore.rules` — 「本人だけが自分のデータを読み書きできる」というルール）が反映されます。完了したら教えてください。
+
+---
+
+## 2026-08-23（Firebase連携）
+
+### やったこと
+
+- ユーザー側でFirebaseプロジェクト（プロジェクトID：`tasquest-abbad`）を作成
+  - Authentication：匿名認証を有効化
+  - Firestore Database：作成（ロケーション：東京、本番環境モード）
+- `flutterfire configure`でFlutterアプリとFirebaseプロジェクトを接続（Android/iOS/Webの3プラットフォーム分）。`lib/firebase_options.dart`・`android/app/google-services.json`・`firebase.json`をリポジトリに追加
+- アプリ側の実装：
+  - `firebase_core`・`firebase_auth`・`cloud_firestore`を導入
+  - `main.dart`でFirebase初期化＋匿名サインイン（`ensureAnonymousSignIn`）を実行
+  - `UserRepository`インターフェースをuid引数を取る形に変更し、`FirestoreUserRepository`を実装（`users/{uid}`とサブコレクション`users/{uid}/questInstances/{instanceId}`に保存）
+  - `authUidProvider`を新設し、本番はFirebase匿名認証、テストは固定uidでoverrideする構成にした（テストがFirebase接続なしで動くように分離）
+  - `firestore.rules`を作成：本人（`request.auth.uid`が一致するuid）のみ自分のドキュメントを読み書き可能、`quests`マスタは全員読み取りのみ
+- `flutter analyze` → 0件、`flutter test` → 全パス（Firestore未接続でもテストは動く構成）
+
+### つまずいたポイント（記録として）
+
+- ノートPC（Windows）でのセットアップで、環境変数PATHの編集が保存されずに何度か消える現象があった → 最終的には手順通りで解決（原因は保存前に閉じてしまっていたことの可能性）
+- `git commit`時にVimエディタが開き、日本語IMEがオンだったため`:wq`等のコマンドが全角文字になり操作不能に → IMEを半角に切り替えることで解決。今後は`git config --global core.editor notepad`でメモ帳を使う設定に変更済み
+
+### 次にやること
+
+上記「次にやること（次回セッションの入り口）」を参照。
 
 ---

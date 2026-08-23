@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'auth/auth_uid_provider.dart';
 import 'models/quest.dart';
 import 'models/quest_genre.dart';
 import 'models/quest_instance.dart';
@@ -8,22 +9,29 @@ import 'models/user_profile.dart';
 import 'repositories/local_user_repository.dart';
 import 'repositories/user_repository.dart';
 
+/// テスト等でoverrideしない限りローカル実装を使う。
+/// 本番（main.dart）ではFirestoreUserRepositoryにoverrideする。
 final userRepositoryProvider = Provider<UserRepository>((ref) => LocalUserRepository());
 
 /// アプリ全体のユーザー状態を保持・更新するコントローラー。
-/// 起動時にリポジトリから読み込み、以後の操作はここを経由して永続化する。
+/// 起動時に認証（authUidProvider）→リポジトリ読み込みの順で行い、
+/// 以後の操作はここを経由して永続化する。
 class UserProfileController extends AsyncNotifier<UserProfile> {
   UserRepository get _repository => ref.read(userRepositoryProvider);
+  late String _uid;
 
   @override
-  Future<UserProfile> build() => _repository.load();
+  Future<UserProfile> build() async {
+    _uid = await ref.watch(authUidProvider.future);
+    return _repository.load(_uid);
+  }
 
   Future<void> _update(UserProfile Function(UserProfile current) transform) async {
     final current = state.valueOrNull;
     if (current == null) return;
     final next = transform(current);
     state = AsyncData(next);
-    await _repository.save(next);
+    await _repository.save(_uid, next);
   }
 
   /// welcome画面を見た（クエストを受注した）ことを記録する。
