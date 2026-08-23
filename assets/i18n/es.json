@@ -1,0 +1,51 @@
+{
+  "app.title": "TaskQuest",
+
+  "common.button.back_to_home": "Volver al inicio",
+  "common.button.next": "Siguiente",
+  "common.tab.home": "Inicio",
+  "common.tab.my_page": "Mi página",
+  "common.tab.settings": "Ajustes",
+
+  "stat.body": "Cuerpo",
+  "stat.mind": "Mente",
+  "stat.life": "Vida diaria",
+
+  "welcome.mascot_greeting": "¡Encantado de conocerte! Empecemos juntos con un pequeño paso.",
+  "welcome.tutorial_quest_title": "El primer paso",
+  "welcome.tutorial_quest_description": "Una misión para conocer la app probándola de verdad.",
+  "welcome.accept_button": "Aceptar misión",
+
+  "checkin.mood_prompt": "¿Cómo te sientes ahora mismo?",
+  "checkin.mood_reaction_1": "Ya veo, debe ser duro. No hace falta esforzarse.",
+  "checkin.mood_reaction_2": "¿Poca energía? Vayamos despacio.",
+  "checkin.mood_reaction_3": "Un día normal, diría yo.",
+  "checkin.mood_reaction_4": "¡Vas genial!",
+  "checkin.mood_reaction_5": "¡En plena forma! ¡Sigue así!",
+  "checkin.tutorial_guide": "Aquí es donde me dices cómo te sientes ahora",
+  "checkin.confirm_button": "Confirmar",
+
+  "quest_active.title": "Misión en curso",
+  "quest_active.remaining_time_label": "Tiempo restante",
+  "quest_active.tutorial_guide": "Puedes cerrar la app o simplemente esperar aquí",
+  "quest_active.watch_ad_skip": "Ver un anuncio para saltar",
+
+  "reward.did_it_button": "¡Hecho!",
+  "reward.mood_prompt": "¿Cómo te sientes ahora que has terminado?",
+  "reward.achievement_label": "¿Cuánto lograste hacer?",
+  "reward.achievement_note": "Solo para tu registro, no afecta la recompensa",
+  "reward.watch_ad_double": "Ver un anuncio para duplicar la recompensa",
+  "reward.tutorial_closing": "¡Este es el flujo básico! A partir de ahora harás esto en tu vida diaria.",
+  "reward.back_to_home": "Volver al inicio",
+  "reward.result_title": "Resultado de la recompensa",
+  "reward.exp_gained": "EXP de {stat} +{amount}",
+
+  "home.greeting": "¡Bienvenido de nuevo!",
+  "home.recommended_title": "Misiones recomendadas",
+  "home.quest_card_duration": "{minutes} min",
+
+  "quest.tutorial.name": "El primer paso",
+  "quest.sample.morning_stretch.name": "Estiramiento matutino",
+  "quest.sample.reading.name": "Lectura de 10 minutos",
+  "quest.sample.room_cleanup.name": "Ordenar"
+}

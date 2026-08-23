@@ -1,0 +1,51 @@
+{
+  "app.title": "TaskQuest",
+
+  "common.button.back_to_home": "Torna alla home",
+  "common.button.next": "Avanti",
+  "common.tab.home": "Home",
+  "common.tab.my_page": "La mia pagina",
+  "common.tab.settings": "Impostazioni",
+
+  "stat.body": "Corpo",
+  "stat.mind": "Mente",
+  "stat.life": "Vita quotidiana",
+
+  "welcome.mascot_greeting": "Piacere di conoscerti! Iniziamo insieme con un piccolo passo.",
+  "welcome.tutorial_quest_title": "Il primo passo",
+  "welcome.tutorial_quest_description": "Una missione per scoprire l'app provandola davvero.",
+  "welcome.accept_button": "Accetta la missione",
+
+  "checkin.mood_prompt": "Come ti senti in questo momento?",
+  "checkin.mood_reaction_1": "Capisco, dev'essere dura. Non serve sforzarsi.",
+  "checkin.mood_reaction_2": "Poca energia? Andiamo piano.",
+  "checkin.mood_reaction_3": "Una giornata come le altre, direi.",
+  "checkin.mood_reaction_4": "Stai andando alla grande!",
+  "checkin.mood_reaction_5": "In forma smagliante! Continua così!",
+  "checkin.tutorial_guide": "Qui mi dici come ti senti in questo momento",
+  "checkin.confirm_button": "Conferma",
+
+  "quest_active.title": "Missione in corso",
+  "quest_active.remaining_time_label": "Tempo rimanente",
+  "quest_active.tutorial_guide": "Puoi chiudere l'app oppure aspettare qui",
+  "quest_active.watch_ad_skip": "Guarda un annuncio per saltare",
+
+  "reward.did_it_button": "Fatto!",
+  "reward.mood_prompt": "Come ti senti ora che hai finito?",
+  "reward.achievement_label": "Quanto sei riuscito a fare?",
+  "reward.achievement_note": "Solo per il tuo archivio — non influisce sulla ricompensa",
+  "reward.watch_ad_double": "Guarda un annuncio per raddoppiare la ricompensa",
+  "reward.tutorial_closing": "Questo è il flusso di base! D'ora in poi lo farai nella tua vita quotidiana.",
+  "reward.back_to_home": "Torna alla home",
+  "reward.result_title": "Risultato della ricompensa",
+  "reward.exp_gained": "EXP {stat} +{amount}",
+
+  "home.greeting": "Bentornato!",
+  "home.recommended_title": "Missioni consigliate",
+  "home.quest_card_duration": "{minutes} min",
+
+  "quest.tutorial.name": "Il primo passo",
+  "quest.sample.morning_stretch.name": "Stretching mattutino",
+  "quest.sample.reading.name": "Lettura di 10 minuti",
+  "quest.sample.room_cleanup.name": "Riordino"
+}

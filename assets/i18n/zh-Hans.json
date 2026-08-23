@@ -1,0 +1,51 @@
+{
+  "app.title": "任务探险",
+
+  "common.button.back_to_home": "返回首页",
+  "common.button.next": "下一步",
+  "common.tab.home": "首页",
+  "common.tab.my_page": "我的页面",
+  "common.tab.settings": "设置",
+
+  "stat.body": "体力",
+  "stat.mind": "智力",
+  "stat.life": "生活力",
+
+  "welcome.mascot_greeting": "初次见面！让我们一起从小小的一步开始吧。",
+  "welcome.tutorial_quest_title": "第一步",
+  "welcome.tutorial_quest_description": "一个通过实际操作来了解应用玩法的任务。",
+  "welcome.accept_button": "接受任务",
+
+  "checkin.mood_prompt": "现在心情怎么样？",
+  "checkin.mood_reaction_1": "这样啊，挺辛苦的吧。不用勉强自己哦。",
+  "checkin.mood_reaction_2": "有点没精神呢，慢慢来吧。",
+  "checkin.mood_reaction_3": "感觉和平时差不多呢。",
+  "checkin.mood_reaction_4": "状态不错哦！",
+  "checkin.mood_reaction_5": "状态绝佳！保持下去！",
+  "checkin.tutorial_guide": "这里是用来告诉我你现在心情的地方",
+  "checkin.confirm_button": "确认接受",
+
+  "quest_active.title": "任务进行中",
+  "quest_active.remaining_time_label": "剩余时间",
+  "quest_active.tutorial_guide": "可以关闭应用，也可以在这里等待",
+  "quest_active.watch_ad_skip": "观看广告以跳过",
+
+  "reward.did_it_button": "完成了！",
+  "reward.mood_prompt": "完成后现在心情如何？",
+  "reward.achievement_label": "完成了多少？",
+  "reward.achievement_note": "仅作记录用，不影响奖励",
+  "reward.watch_ad_double": "观看广告获得双倍奖励",
+  "reward.tutorial_closing": "这就是基本流程！从现在起你会在日常生活中不断这样做。",
+  "reward.back_to_home": "返回首页",
+  "reward.result_title": "奖励结果",
+  "reward.exp_gained": "{stat}经验值 +{amount}",
+
+  "home.greeting": "欢迎回来！",
+  "home.recommended_title": "推荐任务",
+  "home.quest_card_duration": "{minutes}分钟",
+
+  "quest.tutorial.name": "第一步",
+  "quest.sample.morning_stretch.name": "晨间拉伸",
+  "quest.sample.reading.name": "10分钟阅读",
+  "quest.sample.room_cleanup.name": "整理周边"
+}

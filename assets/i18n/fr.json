@@ -1,0 +1,51 @@
+{
+  "app.title": "TaskQuest",
+
+  "common.button.back_to_home": "Retour à l'accueil",
+  "common.button.next": "Suivant",
+  "common.tab.home": "Accueil",
+  "common.tab.my_page": "Ma page",
+  "common.tab.settings": "Paramètres",
+
+  "stat.body": "Corps",
+  "stat.mind": "Esprit",
+  "stat.life": "Vie quotidienne",
+
+  "welcome.mascot_greeting": "Enchanté ! Commençons ensemble par un petit pas.",
+  "welcome.tutorial_quest_title": "Le premier pas",
+  "welcome.tutorial_quest_description": "Une quête pour découvrir l'application en la testant vraiment.",
+  "welcome.accept_button": "Accepter la quête",
+
+  "checkin.mood_prompt": "Comment te sens-tu en ce moment ?",
+  "checkin.mood_reaction_1": "Je vois, c'est difficile. Pas besoin de forcer.",
+  "checkin.mood_reaction_2": "Un peu moins d'énergie ? Allons-y doucement.",
+  "checkin.mood_reaction_3": "Un jour comme un autre, on dirait.",
+  "checkin.mood_reaction_4": "Tu es en pleine forme !",
+  "checkin.mood_reaction_5": "En pleine forme ! Continue comme ça !",
+  "checkin.tutorial_guide": "C'est ici que tu m'indiques ton humeur du moment.",
+  "checkin.confirm_button": "Confirmer",
+
+  "quest_active.title": "Quête en cours",
+  "quest_active.remaining_time_label": "Temps restant",
+  "quest_active.tutorial_guide": "Tu peux fermer l'application ou simplement attendre ici.",
+  "quest_active.watch_ad_skip": "Regarder une pub pour passer",
+
+  "reward.did_it_button": "C'est fait !",
+  "reward.mood_prompt": "Comment te sens-tu maintenant que c'est terminé ?",
+  "reward.achievement_label": "Combien as-tu accompli ?",
+  "reward.achievement_note": "Uniquement pour ton suivi — n'affecte pas la récompense",
+  "reward.watch_ad_double": "Regarder une pub pour doubler la récompense",
+  "reward.tutorial_closing": "Voilà le déroulement de base ! Tu vas maintenant faire ça dans ta vie quotidienne.",
+  "reward.back_to_home": "Retour à l'accueil",
+  "reward.result_title": "Résultat de la récompense",
+  "reward.exp_gained": "EXP {stat} +{amount}",
+
+  "home.greeting": "Content de te revoir !",
+  "home.recommended_title": "Quêtes recommandées",
+  "home.quest_card_duration": "{minutes} min",
+
+  "quest.tutorial.name": "Le premier pas",
+  "quest.sample.morning_stretch.name": "Étirements du matin",
+  "quest.sample.reading.name": "Lecture de 10 minutes",
+  "quest.sample.room_cleanup.name": "Rangement"
+}

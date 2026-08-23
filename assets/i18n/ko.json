@@ -1,0 +1,51 @@
+{
+  "app.title": "태스크퀘스트",
+
+  "common.button.back_to_home": "홈으로 돌아가기",
+  "common.button.next": "다음",
+  "common.tab.home": "홈",
+  "common.tab.my_page": "마이페이지",
+  "common.tab.settings": "설정",
+
+  "stat.body": "체력",
+  "stat.mind": "지력",
+  "stat.life": "생활력",
+
+  "welcome.mascot_greeting": "만나서 반가워! 나와 함께 작은 한 걸음부터 시작해볼까?",
+  "welcome.tutorial_quest_title": "첫걸음",
+  "welcome.tutorial_quest_description": "앱 사용법을 직접 움직이며 익히는 퀘스트야.",
+  "welcome.accept_button": "퀘스트 수주하기",
+
+  "checkin.mood_prompt": "지금 기분은 어때?",
+  "checkin.mood_reaction_1": "그렇구나, 힘들겠다. 무리하지 않아도 괜찮아.",
+  "checkin.mood_reaction_2": "조금 기운이 없구나. 천천히 가자.",
+  "checkin.mood_reaction_3": "평소랑 비슷한 느낌이네.",
+  "checkin.mood_reaction_4": "컨디션 좋은데!",
+  "checkin.mood_reaction_5": "최고의 컨디션이네! 그 기세로!",
+  "checkin.tutorial_guide": "여기서 지금 기분을 알려주는 거야",
+  "checkin.confirm_button": "수주 확정",
+
+  "quest_active.title": "퀘스트 진행 중",
+  "quest_active.remaining_time_label": "남은 시간",
+  "quest_active.tutorial_guide": "앱을 닫아도 되고, 기다려도 괜찮아",
+  "quest_active.watch_ad_skip": "광고 보고 건너뛰기",
+
+  "reward.did_it_button": "해냈어!",
+  "reward.mood_prompt": "끝난 지금 기분은?",
+  "reward.achievement_label": "얼마나 해냈어?",
+  "reward.achievement_note": "기록용일 뿐, 보상에는 영향을 주지 않아",
+  "reward.watch_ad_double": "광고 보고 보상 2배",
+  "reward.tutorial_closing": "이게 기본 흐름이야. 앞으로 일상 속에서 이걸 계속하게 될 거야",
+  "reward.back_to_home": "홈으로 돌아가기",
+  "reward.result_title": "보상 결과",
+  "reward.exp_gained": "{stat} 경험치 +{amount}",
+
+  "home.greeting": "어서 와!",
+  "home.recommended_title": "추천 퀘스트",
+  "home.quest_card_duration": "{minutes}분",
+
+  "quest.tutorial.name": "첫걸음",
+  "quest.sample.morning_stretch.name": "아침 스트레칭",
+  "quest.sample.reading.name": "10분 독서",
+  "quest.sample.room_cleanup.name": "주변 정리"
+}
