@@ -50,12 +50,25 @@ class FirestoreUserRepository implements UserRepository {
       }
     }
 
+    final equipmentData = data['equipmentValue'] as Map<String, dynamic>? ?? {};
+    final equipmentValue = <QuestGenre, double>{
+      for (final genre in QuestGenre.values)
+        genre: (equipmentData[genre.name] as num?)?.toDouble() ?? 0,
+    };
+
+    final townData = data['townLevels'] as Map<String, dynamic>? ?? {};
+    final townLevels = <QuestGenre, int>{
+      for (final genre in QuestGenre.values) genre: (townData[genre.name] as int?) ?? 0,
+    };
+
     return UserProfile(
       hasSeenWelcome: data['hasSeenWelcome'] as bool? ?? false,
       appState: AppRunState.values.byName(data['appState'] as String? ?? 'normal'),
       stats: stats,
       activeQuestInstance: activeQuestInstance,
       isPaidUser: data['isPaidUser'] as bool? ?? false,
+      equipmentValue: equipmentValue,
+      townLevels: townLevels,
     );
   }
 
@@ -68,6 +81,8 @@ class FirestoreUserRepository implements UserRepository {
       'appState': profile.appState.name,
       'isPaidUser': profile.isPaidUser,
       'stats': profile.stats.map((genre, stat) => MapEntry(genre.name, stat.toJson())),
+      'equipmentValue': profile.equipmentValue.map((genre, value) => MapEntry(genre.name, value)),
+      'townLevels': profile.townLevels.map((genre, value) => MapEntry(genre.name, value)),
       'activeQuestInstanceId': active?.id,
     }, SetOptions(merge: true));
 

@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'auth/auth_uid_provider.dart';
 import 'models/quest.dart';
 import 'models/quest_genre.dart';
 import 'models/quest_instance.dart';
+import 'models/quest_reward_result.dart';
 import 'models/stat_progress.dart';
 import 'models/user_profile.dart';
 import 'repositories/local_user_repository.dart';
@@ -19,6 +22,7 @@ final userRepositoryProvider = Provider<UserRepository>((ref) => LocalUserReposi
 class UserProfileController extends AsyncNotifier<UserProfile> {
   UserRepository get _repository => ref.read(userRepositoryProvider);
   late String _uid;
+  final _random = Random();
 
   @override
   Future<UserProfile> build() async {
@@ -65,15 +69,18 @@ class UserProfileController extends AsyncNotifier<UserProfile> {
 
   /// 達成報告を確定し、経験値を加算する。画面仕様書4章のデータ書き込みに相当。
   /// 経験値の加算自体は常に行い、表示用レベルのキャップは[StatProgress.displayLevel]側で行う（企画書5-6）。
-  /// 戻り値は付与した経験値量とジャンル（報酬演出の表示に使う）。
-  Future<(int rewardExp, QuestGenre genre)> completeActiveQuest({
+  ///
+  /// 装備ドロップ（企画書5-3）はダミー実装：釘落とし演出はPhase6で本実装予定のため、
+  /// ここでは確率・上乗せ数値ともに仮の値を使い、報酬が手に入ること自体だけを再現する。
+  /// 開発者確認済み（2026-08-24）：確率・数値テーブルは企画側で確定次第、差し替える。
+  Future<QuestRewardResult> completeActiveQuest({
     required int achievementScore,
     required bool doubleReward,
   }) async {
     final current = state.valueOrNull;
     final active = current?.activeQuestInstance;
     if (current == null || active == null) {
-      return (0, QuestGenre.body);
+      return const QuestRewardResult(expGained: 0, genre: QuestGenre.body);
     }
 
     final currentStat = current.stats[active.genre] ?? StatProgress.initial();
@@ -86,13 +93,74 @@ class UserProfileController extends AsyncNotifier<UserProfile> {
     final newStats = Map<QuestGenre, StatProgress>.from(current.stats)
       ..[active.genre] = updatedStat;
 
+    final drop = _rollDummyEquipmentDrop(
+      questGenre: active.genre,
+      isQuickTier: active.isQuickTier,
+      rewardExp: reward,
+      currentEquipmentValue: current.equipmentValue,
+    );
+
+    final newEquipmentValue = drop == null
+        ? current.equipmentValue
+        : (Map<QuestGenre, double>.from(current.equipmentValue)
+          ..[drop.genre] = drop.value);
+
     await _update((p) => p.copyWith(
           appState: AppRunState.normal,
           clearActiveQuestInstance: true,
           stats: newStats,
+          equipmentValue: newEquipmentValue,
         ));
 
-    return (reward, active.genre);
+    return QuestRewardResult(
+      expGained: reward,
+      genre: active.genre,
+      equipmentGenre: drop?.genre,
+      equipmentValue: drop?.value,
+    );
+  }
+
+  /// 装備ドロップのダミー判定。仮の確率・数値テーブル（要調整、上記メソッドコメント参照）。
+  ({QuestGenre genre, double value})? _rollDummyEquipmentDrop({
+    required QuestGenre questGenre,
+    required bool isQuickTier,
+    required int rewardExp,
+    required Map<QuestGenre, double> currentEquipmentValue,
+  }) {
+    const normalDropChance = 0.3; // 仮の数値
+    const quickTierDropChance = 0.15; // 仮の数値（クイック枠は狭める、企画書5-2-1）
+    final dropChance = isQuickTier ? quickTierDropChance : normalDropChance;
+    if (_random.nextDouble() >= dropChance) return null;
+
+    // ジャンル重み50/25/25（企画書5-3）
+    final otherGenres = QuestGenre.values.where((g) => g != questGenre).toList();
+    final genreRoll = _random.nextDouble();
+    final targetGenre = genreRoll < 0.5
+        ? questGenre
+        : (genreRoll < 0.75 ? otherGenres[0] : otherGenres[1]);
+
+    // 仮の上乗せ数値：報酬経験値の2〜7倍程度のランダム値（要調整）
+    final droppedValue = (rewardExp * (2 + _random.nextInt(6))).toDouble();
+    final current = currentEquipmentValue[targetGenre] ?? 0;
+    if (droppedValue <= current) return null;
+
+    return (genre: targetGenre, value: droppedValue);
+  }
+
+  /// 町のグレードアップ（企画書5-7）。対応するステータスのレベルが5の倍数に
+  /// 達しているのにまだタウンレベルが追いついていない場合のみ実行される。
+  Future<void> gradeUpTown(QuestGenre genre) {
+    return _update((p) {
+      final stat = p.stats[genre] ?? StatProgress.initial();
+      final displayLevel = stat.displayLevel(isPaidUser: p.isPaidUser);
+      final currentTownLevel = p.townLevels[genre] ?? 0;
+      if (displayLevel ~/ 5 <= currentTownLevel) {
+        return p; // グレードアップ不可（対象外タップ）
+      }
+      final newTownLevels = Map<QuestGenre, int>.from(p.townLevels)
+        ..[genre] = currentTownLevel + 1;
+      return p.copyWith(townLevels: newTownLevels);
+    });
   }
 }
 

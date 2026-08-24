@@ -59,5 +59,9 @@
   "settings.account_data_management": "Gérer les données",
   "settings.section.legal": "Conditions et confidentialité",
   "settings.legal.privacy_policy": "Politique de confidentialité",
-  "settings.legal.terms": "Conditions d'utilisation"
+  "settings.legal.terms": "Conditions d'utilisation",
+  "reward.equipment_updated": "Valeur d'équipement {stat} mise à jour +{value}",
+  "home.grade_up_button": "Améliorer {stat}",
+  "home.grade_up_celebration": "La ville de {stat} a progressé !",
+  "my_page.power_label": "Puissance"
 }

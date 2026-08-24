@@ -59,5 +59,9 @@
   "settings.account_data_management": "데이터 관리",
   "settings.section.legal": "이용약관・개인정보",
   "settings.legal.privacy_policy": "개인정보처리방침",
-  "settings.legal.terms": "이용약관"
+  "settings.legal.terms": "이용약관",
+  "reward.equipment_updated": "{stat} 장비 가치가 갱신되었어요 +{value}",
+  "home.grade_up_button": "{stat} 업그레이드",
+  "home.grade_up_celebration": "{stat}의 마을이 성장했어!",
+  "my_page.power_label": "종합력"
 }

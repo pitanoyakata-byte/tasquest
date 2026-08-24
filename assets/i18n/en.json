@@ -59,5 +59,9 @@
   "settings.account_data_management": "Manage Data",
   "settings.section.legal": "Terms & Privacy",
   "settings.legal.privacy_policy": "Privacy Policy",
-  "settings.legal.terms": "Terms of Service"
+  "settings.legal.terms": "Terms of Service",
+  "reward.equipment_updated": "{stat} equipment value updated +{value}",
+  "home.grade_up_button": "Upgrade {stat}",
+  "home.grade_up_celebration": "{stat}'s town leveled up!",
+  "my_page.power_label": "Power"
 }

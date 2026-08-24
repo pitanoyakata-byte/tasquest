@@ -44,6 +44,8 @@ class LocalUserRepository implements UserRepository {
       'appState': profile.appState.name,
       'isPaidUser': profile.isPaidUser,
       'stats': profile.stats.map((genre, stat) => MapEntry(genre.name, stat.toJson())),
+      'equipmentValue': profile.equipmentValue.map((genre, value) => MapEntry(genre.name, value)),
+      'townLevels': profile.townLevels.map((genre, value) => MapEntry(genre.name, value)),
       'activeQuestInstance': active == null
           ? null
           : {
@@ -90,12 +92,25 @@ class LocalUserRepository implements UserRepository {
             rewardExp: activeJson['rewardExp'] as int?,
           );
 
+    final equipmentJson = json['equipmentValue'] as Map<String, dynamic>? ?? {};
+    final equipmentValue = <QuestGenre, double>{
+      for (final genre in QuestGenre.values)
+        genre: (equipmentJson[genre.name] as num?)?.toDouble() ?? 0,
+    };
+
+    final townJson = json['townLevels'] as Map<String, dynamic>? ?? {};
+    final townLevels = <QuestGenre, int>{
+      for (final genre in QuestGenre.values) genre: (townJson[genre.name] as int?) ?? 0,
+    };
+
     return UserProfile(
       hasSeenWelcome: json['hasSeenWelcome'] as bool? ?? false,
       appState: AppRunState.values.byName(json['appState'] as String? ?? 'normal'),
       stats: stats,
       activeQuestInstance: activeQuestInstance,
       isPaidUser: json['isPaidUser'] as bool? ?? false,
+      equipmentValue: equipmentValue,
+      townLevels: townLevels,
     );
   }
 }

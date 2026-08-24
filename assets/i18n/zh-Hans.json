@@ -59,5 +59,9 @@
   "settings.account_data_management": "数据管理",
   "settings.section.legal": "条款与隐私",
   "settings.legal.privacy_policy": "隐私政策",
-  "settings.legal.terms": "使用条款"
+  "settings.legal.terms": "使用条款",
+  "reward.equipment_updated": "{stat}装备价值已更新 +{value}",
+  "home.grade_up_button": "升级{stat}",
+  "home.grade_up_celebration": "{stat}的城镇升级了！",
+  "my_page.power_label": "综合力"
 }

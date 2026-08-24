@@ -5,11 +5,12 @@ import 'package:go_router/go_router.dart';
 import '../../core/i18n/locale_provider.dart';
 import '../../data/models/checkin_args.dart';
 import '../../data/models/quest.dart';
+import '../../data/models/quest_genre.dart';
 import '../../data/models/stat_progress.dart';
 import '../../data/user_profile_controller.dart';
 
-/// 画面仕様書5章：ホーム画面。Phase1ではおすすめクエスト一覧（固定データ）と
-/// 3ステータスの表示のみを実装する（町の成長・広告ゲート等はPhase2以降）。
+/// 画面仕様書5章：ホーム画面。おすすめクエスト一覧（固定データ）、3ステータスの表示、
+/// 町の成長（体力=ジム／知力=研究施設／生活力=自宅）のグレードアップ導線を実装する。
 /// 下部タブ（[HomeShell]）のbody部分として使うため、Scaffold/AppBarは持たない。
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -22,6 +23,9 @@ class HomeScreen extends ConsumerWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
+    final availableGradeUps =
+        QuestGenre.values.where((genre) => profile.isGradeUpAvailable(genre)).toList();
+
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.all(16),
@@ -29,11 +33,43 @@ class HomeScreen extends ConsumerWidget {
           Text(tt(ref, 'home.greeting'), style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 16),
           _StatsRow(stats: profile.stats, isPaidUser: profile.isPaidUser),
+          if (availableGradeUps.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            ...availableGradeUps.map((genre) => _GradeUpButton(genre: genre)),
+          ],
           const SizedBox(height: 24),
           Text(tt(ref, 'home.recommended_title'), style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           ...sampleQuests.map((quest) => _QuestCard(quest: quest)),
         ],
+      ),
+    );
+  }
+}
+
+class _GradeUpButton extends ConsumerWidget {
+  const _GradeUpButton({required this.genre});
+
+  final QuestGenre genre;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: FilledButton.tonalIcon(
+        onPressed: () async {
+          await ref.read(userProfileControllerProvider.notifier).gradeUpTown(genre);
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                tt(ref, 'home.grade_up_celebration', {'stat': tt(ref, genre.statTextId)}),
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.upgrade),
+        label: Text(tt(ref, 'home.grade_up_button', {'stat': tt(ref, genre.statTextId)})),
       ),
     );
   }

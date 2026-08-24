@@ -59,5 +59,9 @@
   "settings.account_data_management": "Gestisci dati",
   "settings.section.legal": "Termini e privacy",
   "settings.legal.privacy_policy": "Informativa sulla privacy",
-  "settings.legal.terms": "Termini di servizio"
+  "settings.legal.terms": "Termini di servizio",
+  "reward.equipment_updated": "Valore equipaggiamento {stat} aggiornato +{value}",
+  "home.grade_up_button": "Potenzia {stat}",
+  "home.grade_up_celebration": "La città di {stat} è cresciuta!",
+  "my_page.power_label": "Potere"
 }

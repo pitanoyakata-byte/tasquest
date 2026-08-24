@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/i18n/locale_provider.dart';
-import '../../data/models/quest_genre.dart';
+import '../../data/models/quest_reward_result.dart';
 import '../../data/user_profile_controller.dart';
 
 /// 画面仕様書4章：達成報告・報酬画面（Phase1はnormal/tutorialモードのみ）。
@@ -24,8 +24,7 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
   _RewardStep _step = _RewardStep.beforeReport;
   int? _moodAfter;
   double _achievementScore = 5;
-  int? _rewardExp;
-  QuestGenre? _rewardGenre;
+  QuestRewardResult? _rewardResult;
   bool _wasTutorial = false;
 
   static const _moodEmojis = ['😞', '😐', '🙂', '😃', '🤩'];
@@ -119,7 +118,8 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
           ],
         );
       case _RewardStep.result:
-        final genreLabel = _rewardGenre == null ? '' : tt(ref, _rewardGenre!.statTextId);
+        final result = _rewardResult;
+        final genreLabel = result == null ? '' : tt(ref, result.genre.statTextId);
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -128,11 +128,22 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
             Text(
               tt(ref, 'reward.exp_gained', {
                 'stat': genreLabel,
-                'amount': '${_rewardExp ?? 0}',
+                'amount': '${result?.expGained ?? 0}',
               }),
               style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
+            if (result?.equipmentGenre != null) ...[
+              const SizedBox(height: 12),
+              Text(
+                tt(ref, 'reward.equipment_updated', {
+                  'stat': tt(ref, result!.equipmentGenre!.statTextId),
+                  'value': result.equipmentValue!.round().toString(),
+                }),
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
             if (isTutorial) ...[
               const SizedBox(height: 24),
               Text(
@@ -155,14 +166,13 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
     final activeInstance = ref.read(userProfileControllerProvider).valueOrNull?.activeQuestInstance;
     _wasTutorial = activeInstance?.isTutorial ?? false;
     final controller = ref.read(userProfileControllerProvider.notifier);
-    final (rewardExp, genre) = await controller.completeActiveQuest(
+    final result = await controller.completeActiveQuest(
       achievementScore: _achievementScore.round(),
       doubleReward: false, // 広告視聴による2倍はAdMob未導入のためPhase1では未実装。
     );
     if (!mounted) return;
     setState(() {
-      _rewardExp = rewardExp;
-      _rewardGenre = genre;
+      _rewardResult = result;
       _step = _RewardStep.result;
     });
   }

@@ -59,5 +59,9 @@
   "settings.account_data_management": "Daten verwalten",
   "settings.section.legal": "AGB & Datenschutz",
   "settings.legal.privacy_policy": "Datenschutzerklärung",
-  "settings.legal.terms": "Nutzungsbedingungen"
+  "settings.legal.terms": "Nutzungsbedingungen",
+  "reward.equipment_updated": "{stat}-Ausrüstungswert aktualisiert +{value}",
+  "home.grade_up_button": "{stat} verbessern",
+  "home.grade_up_celebration": "Die Stadt für {stat} ist gewachsen!",
+  "my_page.power_label": "Gesamtkraft"
 }

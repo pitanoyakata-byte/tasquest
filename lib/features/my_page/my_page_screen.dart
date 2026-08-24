@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/locale_provider.dart';
+import '../../data/models/display_stat.dart';
 import '../../data/models/quest_genre.dart';
 import '../../data/models/stat_progress.dart';
 import '../../data/quest_history_provider.dart';
 import '../../data/user_profile_controller.dart';
 
-/// 画面仕様書6章：マイページ。Phase2ではステータス・振り返りの2タブのみ実装する
-/// （図鑑・称号・数値記録タブはPhase2のさらに先の予定、ROADMAP.md参照）。
+/// 画面仕様書6章：マイページ。ステータス・振り返りの2タブを実装する
+/// （図鑑・数値記録タブはPhase7以降の予定、ROADMAP.md参照）。
 class MyPageScreen extends StatelessWidget {
   const MyPageScreen({super.key});
 
@@ -74,6 +75,8 @@ class _StatusTab extends ConsumerWidget {
               genre: genre,
               stat: profile.stats[genre] ?? StatProgress.initial(),
               isPaidUser: profile.isPaidUser,
+              equipmentValue: profile.equipmentValue[genre] ?? 0,
+              townLevel: profile.townLevels[genre] ?? 0,
             ),
         ],
       ),
@@ -82,16 +85,30 @@ class _StatusTab extends ConsumerWidget {
 }
 
 class _StatCard extends ConsumerWidget {
-  const _StatCard({required this.genre, required this.stat, required this.isPaidUser});
+  const _StatCard({
+    required this.genre,
+    required this.stat,
+    required this.isPaidUser,
+    required this.equipmentValue,
+    required this.townLevel,
+  });
 
   final QuestGenre genre;
   final StatProgress stat;
   final bool isPaidUser;
+  final double equipmentValue;
+  final int townLevel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final required = StatProgress.expRequiredForLevel(stat.level);
     final progress = required == 0 ? 0.0 : (stat.exp / required).clamp(0.0, 1.0);
+    final displayLevel = stat.displayLevel(isPaidUser: isPaidUser);
+    final power = DisplayStat.calculate(
+      equipmentValue: equipmentValue,
+      townLevel: townLevel,
+      level: displayLevel,
+    );
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -104,8 +121,13 @@ class _StatCard extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(tt(ref, genre.statTextId), style: Theme.of(context).textTheme.titleMedium),
-                Text('Lv.${stat.displayLevel(isPaidUser: isPaidUser)}'),
+                Text('Lv.$displayLevel'),
               ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${tt(ref, 'my_page.power_label')}: ${power.round()}',
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 8),
             ClipRRect(
