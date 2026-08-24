@@ -33,7 +33,10 @@ users/{uid}
     body:  { level: int, exp: int }   // 体力
     mind:  { level: int, exp: int }   // 知力
     life:  { level: int, exp: int }   // 生活力
-  townStage: int                      // 町の成長段階。「グレードアップ」ボタンをタップした回数（＝現在の背景ステージ）
+  equipmentValue: { body: number, mind: number, life: number }
+    // 5-3の「装備」枠。各ステータスの現在の最高上乗せ数値（絶対値、％ではない）。ドロップ時に現在値より高ければ更新（下がることはない、付け替え・売却なし）。5-4-2の表示ステータス計算式の「装備の数値」に使う
+  townLevels: { body: int, mind: int, life: int }
+    // 5-7の「町の成長（グレードアップ）」。体力＝ジム、知力＝研究施設、生活力＝自宅の各建物のタウンレベル（グレードアップボタンをタップした回数）。5の倍数のたびに見た目が変わる
   appState: "normal" | "questInProgress" | "bundleInProgress"
   activeQuestInstanceId: string | null
   activeBundleInstanceId: string | null
@@ -83,13 +86,21 @@ users/{uid}/bundleInstances/{instanceId}
   questInstanceIds: string[]
   endedAt: timestamp | null
 
-users/{uid}/equipment/{dropId}          // 図鑑（Phase2）
-  name: string
-  rarityStars: int (1〜5)
-  frameColor: string
-  statBoost: { stat: "body"|"mind"|"life", amount: int }
-  isCurrentBest: boolean                // そのステータスの現在の上乗せ分か
-  obtainedAt: timestamp
+artworks/{artworkId}                    // 図鑑アイテムのマスタ（Phase2・運営が用意する美術品カタログ）
+  title: string                          // 作品名
+  artist: string                         // 作者
+  year: string                           // 制作年代（不明な場合は「◯世紀頃」等の文字列も許容）
+  imageUrl: string                       // 使用画像。商用利用が明確に許可されたソースのみ（企画書5-4-1）
+  valueAmount: int                       // コレクション価値（架空通貨「ドルドル」建て）。現実の市場価格は一切参照せず、この世界オリジナルの価値観として運営が独自に設定する（企画書5-4-1）
+  statBoostPercent: { stat: "body"|"mind"|"life", percent: number }  // 図鑑コレクションのステータス補正％（5-4-1・5-4-2の美術品の補正に使用）。運営が独自に設定
+  equipmentValue: number                 // 装備用の上乗せ数値（絶対値、5-3・5-4-2の「装備の数値」に使用）。statBoostPercentとは別軸で運営が独自に設定
+  rarityStars: int (1〜5)                // valueAmountの高さに連動して設定する
+  genre: "body" | "mind" | "life"        // ドロップの重み付け（5-3）に使うジャンル分類
+
+users/{uid}/artworks/{artworkId}        // 図鑑（Phase2）。美術品ごとの入手記録（累計）
+  count: int                             // 入手回数（重複含む）。5-4-2の美術品補正の指数として使う
+  firstObtainedAt: timestamp
+  lastObtainedAt: timestamp
 
 users/{uid}/diaryEntries/{date}         // 日記（課金限定、ローカル保存＋課金者はクラウド同期）
   text: string
@@ -253,8 +264,10 @@ force-quit・バックグラウンドは通常のプロセス終了として扱�
 | ホームに戻るタップ（mode=normal/bundle_end/recordTemplate） | `home` |
 | ホームに戻るタップ（mode=tutorial、初回のみ） | `consent`（未表示の場合のみ）→ `paywall`（source=onboarding）→ `home` |
 
-**データ書き込み**：`questInstance.status = "completed"`, `achievementScore` 保存、経験値・装備を確定して `users.stats` を更新。`users.appState = "normal"`, `activeQuestInstanceId = null`。
+**データ書き込み**：`questInstance.status = "completed"`, `achievementScore` 保存、経験値を確定して `users.stats` を更新。`users.appState = "normal"`, `activeQuestInstanceId = null`。
 recordTemplateの場合：`recordEntries` に新規ドキュメント作成（`templateId`, `recordedAt: now`, `moodAtStart`, `value: recordValue`, `rewardExp`）。`recordTemplate.lastRecordedDate` を当日日付に更新。`users.stats[recordTemplate.linkedStat]` に `rewardExp` を加算。
+
+**美術品ドロップ時の書き込み（企画書5-3・5-4）**：装備・図鑑アイテムが当選した場合、(1) `users/{uid}/artworks/{artworkId}` を作成またはインクリメント（`count`を+1、`lastObtainedAt: now`）。(2) 当選した`artworks.equipmentValue`が、対応するステータスの`users.equipmentValue[stat]`より高ければ更新（下がることはない）。この2つは常にセットで実行し、装備枠が更新されるかどうかに関わらず図鑑への記録は必ず行う。
 
 **無課金レベルキャップの適用点（企画書5-6）**：経験値の加算自体は常に行う。表示用の `level` を計算する関数は、無課金ユーザーの場合はレベル50を上限にクランプして返す（生の経験値は保持し続ける）。
 
@@ -263,6 +276,15 @@ recordTemplateの場合：`recordEntries` に新規ドキュメント作成（`t
 **クイック枠クエストの報酬（企画書5-2-1）**：10〜15分の継続行動を伴わず報告のみで完了するクエスト（`quest.isQuickTier == true`。数値記録テンプレート・早起きクエストが該当）は、経験値を通常の半分（`必要経験値(L) / 4`）とする。recordTemplateの固定報酬もこの式に基づき、`recordTemplate.linkedStat` の現在レベルから算出する。釘落とし演出（企画書5-3-1）における装備・図鑑アイテムの当選領域も、クイック枠は通常クエストより狭く設定する。
 
 **数値記録テンプレートの日次制限（企画書4-6）**：`recordTemplate.lastRecordedDate` が当日と一致する場合、マイページの数値記録タブでそのテンプレートをタップ不可にする（クールダウンを持たない系統のクエストは1日1回までという共通原則）。
+
+**表示ステータス値の計算式（企画書5-4-2）**：マイページ等に表示する体力・知力・生活力は、`users.equipmentValue[stat] × タウンの補正 × レベルの補正 × 美術品の補正` で算出する。
+
+- 装備の数値：`users.equipmentValue[stat]`（絶対値）をそのまま使う。
+- タウンの補正：対応する建物の`users.townLevels[stat]`をTとして、1〜Tの各タウンレベルのうち5の倍数は1.10、それ以外は1.02を該当回数だけ累乗しすべて掛け合わせる。T=0（未グレードアップ）の場合は1（補正なし）。
+- レベルの補正：`(1.01) ^ L`。**Lは表示用レベル（無課金者はレベルキャップでクランプされた値、課金者は本来のレベル）を使う**。無課金者がキャップ到達後も裏側では経験値・本来のレベルは計算され続けるが、表示ステータス値の計算にはキャップ後の表示レベルを使い、課金した瞬間に本来のレベルへ計算が切り替わる（開発者確認済み、2026-08-24）。
+- 美術品の補正：`users/{uid}/artworks/*` の各ドキュメントについて `(1 + artworks[artworkId].statBoostPercent) ^ count` を計算し、対応するステータスに属するものすべてを掛け合わせる。
+- 計算例：体力レベル56・`equipmentValue.body`=1000・`townLevels.body`=11・美術品（1%×4個、5%×4個）の場合、レベル補正1.01^56≈1.746、タウン補正（1〜11のうち5の倍数は5・10の2回）1.10^2×1.02^9≈1.446、美術品補正1.01^4×1.05^4≈1.265。表示ステータス＝1000×1.446×1.746×1.265≈約3193。
+- 用途の限定：この表示ステータス値はクエストの受注条件・報酬など通常のゲームプレイ判定には一切使わない（企画書5-5）。唯一の例外はPhase2のレイドボスでのダメージ貢献量算出（詳細は実装時に判断）。
 
 ---
 
@@ -274,8 +296,8 @@ recordTemplateの場合：`recordEntries` に新規ドキュメント作成（`t
 | 要素 | 型 | 内容・由来 |
 |---|---|---|
 | マスコット挨拶・状態表示 | Text/Image | |
-| 背景シーン（町の成長） | Image | `users.townStage` に対応する背景画像を表示（企画書5-7・12章） |
-| 「グレードアップ」ボタン | Button | 通常は非表示。`users.stats` の合計レベルが次の節目に達した時のみ出現。タップで `townStage` を+1し、背景を次段階へ、3ステータスへ均等に少量の経験値ボーナスを加算、マスコットが特別な反応をする |
+| 背景シーン（町の成長） | Image | 3ステータスに対応する3つの建物（体力＝ジム、知力＝研究施設、生活力＝自宅）を配置。それぞれ`users.townLevels[stat]`が5の倍数の時のみ見た目が切り替わる（企画書5-7・12章） |
+| 「グレードアップ」ボタン（体力・知力・生活力ぶん、最大3個） | Button | 通常は非表示。対応するステータスの`users.stats[stat].level`が5の倍数に達した時のみ、その建物のボタンが出現する。タップで`users.townLevels[stat]`を+1し、対応する建物のみ次段階へ進化、その建物のマスコットが特別な反応をする |
 | おすすめクエスト一覧 | List | 行動履歴に基づくパーソナライズ（課金無課金共通・企画書14-4／17章MVP項目）。時間帯解放クエストがあれば優先表示 |
 | ボディ・ダブリングの気配表示 | Text | 「今、同じくらいの時間に◯人がこのクエストに挑戦中」（企画書6-1。Checkin画面側に出す設計だったが、ホームで先出しする案も実装時に検討可） |
 | 前日実績バッジ | Text | 「昨日◯人が挑戦」 |
@@ -286,7 +308,7 @@ recordTemplateの場合：`recordEntries` に新規ドキュメント作成（`t
 | 操作 | 遷移先 |
 |---|---|
 | クエストをタップ | 無課金者かつ `dailyQuestCount >= 3` の場合、遷移前に広告視聴を挟む（視聴完了で`checkin`へ、途中離脱ならホームに留まる）。それ以外は `checkin`（mode=normal） |
-| 「グレードアップ」ボタンをタップ | 画面遷移なし。その場で背景更新・ステータス加算・マスコット特別演出を行う |
+| いずれかの「グレードアップ」ボタンをタップ | 画面遷移なし。その場で該当する建物のみ見た目を更新（タウンレベルが5の倍数の時のみ）し、そのステータスの表示ステータス値にタウン補正を反映、対応するマスコットが特別演出を行う |
 | 「大連続クエスト」タップ（課金者のみ表示） | `bundle_list` |
 | 無課金者が大連続クエストの案内をタップ | `paywall` |
 | 下部タブ：マイページ | `my_page` |
@@ -301,10 +323,9 @@ recordTemplateの場合：`recordEntries` に新規ドキュメント作成（`t
 **表示要素（共通）**
 | タブ | 内容 |
 |---|---|
-| ステータス | 体力・知力・生活力のレベルバー、合計レベル（企画書5-5）。無課金はキャップ上限で表示が止まる |
+| ステータス | 体力・知力・生活力の表示ステータス値（企画書5-4-2、装備×タウン×レベル×美術品の掛け算）とレベルバー、合計レベル（企画書5-5）。無課金はキャップ上限で表示が止まる |
 | 振り返り | 直近の実績サマリー。無課金は直近1週間分のみ、課金は週次サマリー（企画書16-6）＋全履歴 |
-| 図鑑（Phase2） | 装備の収集状況。無課金はレベルキャップ帯までのみ解放 |
-| 称号（Phase2） | 達成実績に応じた称号 |
+| 図鑑（Phase2） | 装備（パブリックドメインの美術品、企画書5-4-1）の収集状況。各アイテムに作品名・作者・コレクション価値（架空通貨「ドルドル」）を表示。収集済みアイテムの価値を合計した「コレクション総評価額」をタブ上部に表示する。無課金はレベルキャップ帯までのみ解放（総評価額も解放済み分のみ集計） |
 | 数値記録（課金限定・Phase2） | `recordTemplates`一覧（最大10個）と、テンプレートごとの積み上げ数／推移グラフ。無課金者はタブごと非表示（一覧に出さず`paywall`へ誘導するCTAのみ表示）。推移グラフは望まない人の目に自然と入らないよう、このタブの中でもテンプレートを選んで開いた先に置く（一覧に常時表示しない）。テンプレート新規作成もここから行う（項目名A・単位B・表示形式C・紐付けステータスDを入力） |
 
 **遷移表**：下部タブから `home` `settings` へ。無課金ユーザーが「全履歴を見る」等の課金限定表示をタップした場合は `paywall` へ。数値記録タブでテンプレートをタップすると、そのテンプレートの記録フロー（`checkin`→`reward`と同一コンポーネントを再利用、mode=recordTemplate）に遷移する。当日すでに記録済みのテンプレートは「本日は記録済み」と表示しタップ不可にする。
@@ -420,6 +441,7 @@ recordTemplateの場合：`recordEntries` に新規ドキュメント作成（`t
 ## 13. 未確定・実装時に詰める必要がある点
 
 - 装備ドロップ確率の実際の乱数テーブル化（5-3のジャンル重み50/25/25を、釘落とし演出の当選領域の配置に落とし込む）
+- 図鑑アイテム（`artworks`）の実際の作品選定・画像ソースの利用条件確認・コレクション価値テーブルの作成（企画書5-4-1）
 - 通知・広告SDKの詳細選定（Firebase Cloud Messaging・AdMobの具体的な設定。課金基盤はRevenueCatに決定済み）
 - ソフトトライアル終了後に再度ストア公式トライアルを提示してよいか（ストア規約上の可否を含む）の運用判断
 - アプリ名の商標・重複確認
