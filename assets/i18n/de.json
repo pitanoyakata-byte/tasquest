@@ -1,21 +1,17 @@
 {
   "app.title": "TaskQuest",
-
   "common.button.back_to_home": "Zurück zur Startseite",
   "common.button.next": "Weiter",
   "common.tab.home": "Start",
   "common.tab.my_page": "Meine Seite",
   "common.tab.settings": "Einstellungen",
-
   "stat.body": "Körper",
   "stat.mind": "Geist",
   "stat.life": "Alltag",
-
   "welcome.mascot_greeting": "Schön, dich kennenzulernen! Lass uns gemeinsam mit einem kleinen Schritt beginnen.",
   "welcome.tutorial_quest_title": "Der erste Schritt",
   "welcome.tutorial_quest_description": "Eine Quest, um die App durch Ausprobieren kennenzulernen.",
   "welcome.accept_button": "Quest annehmen",
-
   "checkin.mood_prompt": "Wie fühlst du dich gerade?",
   "checkin.mood_reaction_1": "Verstehe, das ist hart. Du musst dich nicht überanstrengen.",
   "checkin.mood_reaction_2": "Etwas wenig Energie? Lass es langsam angehen.",
@@ -24,12 +20,10 @@
   "checkin.mood_reaction_5": "Bestform! Weiter so!",
   "checkin.tutorial_guide": "Hier sagst du mir, wie du dich fühlst.",
   "checkin.confirm_button": "Bestätigen",
-
   "quest_active.title": "Quest läuft",
   "quest_active.remaining_time_label": "Verbleibende Zeit",
   "quest_active.tutorial_guide": "Du kannst die App schließen oder einfach hier warten.",
   "quest_active.watch_ad_skip": "Werbung ansehen zum Überspringen",
-
   "reward.did_it_button": "Geschafft!",
   "reward.mood_prompt": "Wie fühlst du dich jetzt, wo es geschafft ist?",
   "reward.achievement_label": "Wie viel hast du geschafft?",
@@ -39,13 +33,31 @@
   "reward.back_to_home": "Zurück zur Startseite",
   "reward.result_title": "Belohnungsergebnis",
   "reward.exp_gained": "{stat}-EP +{amount}",
-
   "home.greeting": "Willkommen zurück!",
   "home.recommended_title": "Empfohlene Quests",
   "home.quest_card_duration": "{minutes} Min.",
-
   "quest.tutorial.name": "Der erste Schritt",
   "quest.sample.morning_stretch.name": "Morgendehnung",
   "quest.sample.reading.name": "10 Minuten lesen",
-  "quest.sample.room_cleanup.name": "Aufräumen"
+  "quest.sample.room_cleanup.name": "Aufräumen",
+  "my_page.tab.status": "Status",
+  "my_page.tab.reflection": "Rückblick",
+  "my_page.total_level_label": "Gesamtlevel",
+  "my_page.reflection.empty": "Noch keine Einträge",
+  "my_page.reflection.free_notice": "Kostenlose Nutzer sehen nur die letzten 7 Tage",
+  "my_page.reflection.achievement_label": "Erfolg {score}/10",
+  "settings.section.sound": "Lautstärke",
+  "settings.volume_bgm": "Hintergrundmusik",
+  "settings.volume_se": "Soundeffekte",
+  "settings.section.notification": "Benachrichtigungen",
+  "settings.notification_toggle": "Benachrichtigungen erhalten",
+  "settings.section.language": "Sprache",
+  "settings.section.subscription": "Abonnement",
+  "settings.subscription_manage": "Verwalten",
+  "settings.not_ready_message": "Diese Funktion kommt bald",
+  "settings.section.account": "Konto & Daten",
+  "settings.account_data_management": "Daten verwalten",
+  "settings.section.legal": "AGB & Datenschutz",
+  "settings.legal.privacy_policy": "Datenschutzerklärung",
+  "settings.legal.terms": "Nutzungsbedingungen"
 }

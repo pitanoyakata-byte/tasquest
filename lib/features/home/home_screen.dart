@@ -10,6 +10,7 @@ import '../../data/user_profile_controller.dart';
 
 /// 画面仕様書5章：ホーム画面。Phase1ではおすすめクエスト一覧（固定データ）と
 /// 3ステータスの表示のみを実装する（町の成長・広告ゲート等はPhase2以降）。
+/// 下部タブ（[HomeShell]）のbody部分として使うため、Scaffold/AppBarは持たない。
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -17,24 +18,23 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(userProfileControllerProvider).valueOrNull;
 
-    return Scaffold(
-      appBar: AppBar(title: Text(tt(ref, 'app.title'))),
-      body: profile == null
-          ? const Center(child: CircularProgressIndicator())
-          : SafeArea(
-              child: ListView(
-                padding: const EdgeInsets.all(16),
-                children: [
-                  Text(tt(ref, 'home.greeting'), style: Theme.of(context).textTheme.headlineSmall),
-                  const SizedBox(height: 16),
-                  _StatsRow(stats: profile.stats, isPaidUser: profile.isPaidUser),
-                  const SizedBox(height: 24),
-                  Text(tt(ref, 'home.recommended_title'), style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 8),
-                  ...sampleQuests.map((quest) => _QuestCard(quest: quest)),
-                ],
-              ),
-            ),
+    if (profile == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return SafeArea(
+      child: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Text(tt(ref, 'home.greeting'), style: Theme.of(context).textTheme.headlineSmall),
+          const SizedBox(height: 16),
+          _StatsRow(stats: profile.stats, isPaidUser: profile.isPaidUser),
+          const SizedBox(height: 24),
+          Text(tt(ref, 'home.recommended_title'), style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          ...sampleQuests.map((quest) => _QuestCard(quest: quest)),
+        ],
+      ),
     );
   }
 }

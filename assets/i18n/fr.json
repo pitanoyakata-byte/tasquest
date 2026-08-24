@@ -1,21 +1,17 @@
 {
   "app.title": "TaskQuest",
-
   "common.button.back_to_home": "Retour à l'accueil",
   "common.button.next": "Suivant",
   "common.tab.home": "Accueil",
   "common.tab.my_page": "Ma page",
   "common.tab.settings": "Paramètres",
-
   "stat.body": "Corps",
   "stat.mind": "Esprit",
   "stat.life": "Vie quotidienne",
-
   "welcome.mascot_greeting": "Enchanté ! Commençons ensemble par un petit pas.",
   "welcome.tutorial_quest_title": "Le premier pas",
   "welcome.tutorial_quest_description": "Une quête pour découvrir l'application en la testant vraiment.",
   "welcome.accept_button": "Accepter la quête",
-
   "checkin.mood_prompt": "Comment te sens-tu en ce moment ?",
   "checkin.mood_reaction_1": "Je vois, c'est difficile. Pas besoin de forcer.",
   "checkin.mood_reaction_2": "Un peu moins d'énergie ? Allons-y doucement.",
@@ -24,12 +20,10 @@
   "checkin.mood_reaction_5": "En pleine forme ! Continue comme ça !",
   "checkin.tutorial_guide": "C'est ici que tu m'indiques ton humeur du moment.",
   "checkin.confirm_button": "Confirmer",
-
   "quest_active.title": "Quête en cours",
   "quest_active.remaining_time_label": "Temps restant",
   "quest_active.tutorial_guide": "Tu peux fermer l'application ou simplement attendre ici.",
   "quest_active.watch_ad_skip": "Regarder une pub pour passer",
-
   "reward.did_it_button": "C'est fait !",
   "reward.mood_prompt": "Comment te sens-tu maintenant que c'est terminé ?",
   "reward.achievement_label": "Combien as-tu accompli ?",
@@ -39,13 +33,31 @@
   "reward.back_to_home": "Retour à l'accueil",
   "reward.result_title": "Résultat de la récompense",
   "reward.exp_gained": "EXP {stat} +{amount}",
-
   "home.greeting": "Content de te revoir !",
   "home.recommended_title": "Quêtes recommandées",
   "home.quest_card_duration": "{minutes} min",
-
   "quest.tutorial.name": "Le premier pas",
   "quest.sample.morning_stretch.name": "Étirements du matin",
   "quest.sample.reading.name": "Lecture de 10 minutes",
-  "quest.sample.room_cleanup.name": "Rangement"
+  "quest.sample.room_cleanup.name": "Rangement",
+  "my_page.tab.status": "Statut",
+  "my_page.tab.reflection": "Bilan",
+  "my_page.total_level_label": "Niveau total",
+  "my_page.reflection.empty": "Pas encore d'historique",
+  "my_page.reflection.free_notice": "Les utilisateurs gratuits ne voient que les 7 derniers jours",
+  "my_page.reflection.achievement_label": "Réussite {score}/10",
+  "settings.section.sound": "Volume",
+  "settings.volume_bgm": "Musique",
+  "settings.volume_se": "Effets sonores",
+  "settings.section.notification": "Notifications",
+  "settings.notification_toggle": "Recevoir les notifications",
+  "settings.section.language": "Langue",
+  "settings.section.subscription": "Abonnement",
+  "settings.subscription_manage": "Gérer",
+  "settings.not_ready_message": "Cette fonctionnalité arrive bientôt",
+  "settings.section.account": "Compte et données",
+  "settings.account_data_management": "Gérer les données",
+  "settings.section.legal": "Conditions et confidentialité",
+  "settings.legal.privacy_policy": "Politique de confidentialité",
+  "settings.legal.terms": "Conditions d'utilisation"
 }

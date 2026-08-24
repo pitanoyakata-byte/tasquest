@@ -1,21 +1,17 @@
 {
   "app.title": "TaskQuest",
-
   "common.button.back_to_home": "Back to Home",
   "common.button.next": "Next",
   "common.tab.home": "Home",
   "common.tab.my_page": "My Page",
   "common.tab.settings": "Settings",
-
   "stat.body": "Body",
   "stat.mind": "Mind",
   "stat.life": "Life",
-
   "welcome.mascot_greeting": "Nice to meet you! Let's start with one small step together.",
   "welcome.tutorial_quest_title": "The First Step",
   "welcome.tutorial_quest_description": "A quest to learn how the app works by actually trying it out.",
   "welcome.accept_button": "Accept Quest",
-
   "checkin.mood_prompt": "How are you feeling right now?",
   "checkin.mood_reaction_1": "I see, that's tough. It's okay to take it easy.",
   "checkin.mood_reaction_2": "Feeling a bit low? Let's go slowly.",
@@ -24,12 +20,10 @@
   "checkin.mood_reaction_5": "Feeling awesome! Keep it up!",
   "checkin.tutorial_guide": "This is where you tell me how you're feeling.",
   "checkin.confirm_button": "Confirm",
-
   "quest_active.title": "Quest in Progress",
   "quest_active.remaining_time_label": "Time Remaining",
   "quest_active.tutorial_guide": "You can close the app or just wait here.",
   "quest_active.watch_ad_skip": "Watch an ad to skip",
-
   "reward.did_it_button": "Did it!",
   "reward.mood_prompt": "How do you feel now that it's done?",
   "reward.achievement_label": "How much did you get done?",
@@ -39,13 +33,31 @@
   "reward.back_to_home": "Back to Home",
   "reward.result_title": "Reward Result",
   "reward.exp_gained": "{stat} EXP +{amount}",
-
   "home.greeting": "Welcome back!",
   "home.recommended_title": "Recommended Quests",
   "home.quest_card_duration": "{minutes} min",
-
   "quest.tutorial.name": "The First Step",
   "quest.sample.morning_stretch.name": "Morning Stretch",
   "quest.sample.reading.name": "10-Minute Reading",
-  "quest.sample.room_cleanup.name": "Tidy Up"
+  "quest.sample.room_cleanup.name": "Tidy Up",
+  "my_page.tab.status": "Status",
+  "my_page.tab.reflection": "Reflection",
+  "my_page.total_level_label": "Total Level",
+  "my_page.reflection.empty": "No records yet",
+  "my_page.reflection.free_notice": "Free users can only see the last 7 days",
+  "my_page.reflection.achievement_label": "Achievement {score}/10",
+  "settings.section.sound": "Sound",
+  "settings.volume_bgm": "BGM",
+  "settings.volume_se": "Sound Effects",
+  "settings.section.notification": "Notifications",
+  "settings.notification_toggle": "Receive notifications",
+  "settings.section.language": "Language",
+  "settings.section.subscription": "Subscription",
+  "settings.subscription_manage": "Manage",
+  "settings.not_ready_message": "This feature is coming soon",
+  "settings.section.account": "Account & Data",
+  "settings.account_data_management": "Manage Data",
+  "settings.section.legal": "Terms & Privacy",
+  "settings.legal.privacy_policy": "Privacy Policy",
+  "settings.legal.terms": "Terms of Service"
 }

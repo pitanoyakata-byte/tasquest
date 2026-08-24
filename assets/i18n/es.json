@@ -1,21 +1,17 @@
 {
   "app.title": "TaskQuest",
-
   "common.button.back_to_home": "Volver al inicio",
   "common.button.next": "Siguiente",
   "common.tab.home": "Inicio",
   "common.tab.my_page": "Mi página",
   "common.tab.settings": "Ajustes",
-
   "stat.body": "Cuerpo",
   "stat.mind": "Mente",
   "stat.life": "Vida diaria",
-
   "welcome.mascot_greeting": "¡Encantado de conocerte! Empecemos juntos con un pequeño paso.",
   "welcome.tutorial_quest_title": "El primer paso",
   "welcome.tutorial_quest_description": "Una misión para conocer la app probándola de verdad.",
   "welcome.accept_button": "Aceptar misión",
-
   "checkin.mood_prompt": "¿Cómo te sientes ahora mismo?",
   "checkin.mood_reaction_1": "Ya veo, debe ser duro. No hace falta esforzarse.",
   "checkin.mood_reaction_2": "¿Poca energía? Vayamos despacio.",
@@ -24,12 +20,10 @@
   "checkin.mood_reaction_5": "¡En plena forma! ¡Sigue así!",
   "checkin.tutorial_guide": "Aquí es donde me dices cómo te sientes ahora",
   "checkin.confirm_button": "Confirmar",
-
   "quest_active.title": "Misión en curso",
   "quest_active.remaining_time_label": "Tiempo restante",
   "quest_active.tutorial_guide": "Puedes cerrar la app o simplemente esperar aquí",
   "quest_active.watch_ad_skip": "Ver un anuncio para saltar",
-
   "reward.did_it_button": "¡Hecho!",
   "reward.mood_prompt": "¿Cómo te sientes ahora que has terminado?",
   "reward.achievement_label": "¿Cuánto lograste hacer?",
@@ -39,13 +33,31 @@
   "reward.back_to_home": "Volver al inicio",
   "reward.result_title": "Resultado de la recompensa",
   "reward.exp_gained": "EXP de {stat} +{amount}",
-
   "home.greeting": "¡Bienvenido de nuevo!",
   "home.recommended_title": "Misiones recomendadas",
   "home.quest_card_duration": "{minutes} min",
-
   "quest.tutorial.name": "El primer paso",
   "quest.sample.morning_stretch.name": "Estiramiento matutino",
   "quest.sample.reading.name": "Lectura de 10 minutos",
-  "quest.sample.room_cleanup.name": "Ordenar"
+  "quest.sample.room_cleanup.name": "Ordenar",
+  "my_page.tab.status": "Estado",
+  "my_page.tab.reflection": "Resumen",
+  "my_page.total_level_label": "Nivel total",
+  "my_page.reflection.empty": "Aún no hay registros",
+  "my_page.reflection.free_notice": "Los usuarios gratuitos solo ven los últimos 7 días",
+  "my_page.reflection.achievement_label": "Logro {score}/10",
+  "settings.section.sound": "Volumen",
+  "settings.volume_bgm": "Música",
+  "settings.volume_se": "Efectos de sonido",
+  "settings.section.notification": "Notificaciones",
+  "settings.notification_toggle": "Recibir notificaciones",
+  "settings.section.language": "Idioma",
+  "settings.section.subscription": "Suscripción",
+  "settings.subscription_manage": "Gestionar",
+  "settings.not_ready_message": "Esta función estará disponible pronto",
+  "settings.section.account": "Cuenta y datos",
+  "settings.account_data_management": "Gestionar datos",
+  "settings.section.legal": "Términos y privacidad",
+  "settings.legal.privacy_policy": "Política de privacidad",
+  "settings.legal.terms": "Términos de servicio"
 }

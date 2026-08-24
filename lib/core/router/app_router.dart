@@ -6,10 +6,10 @@ import '../../data/models/checkin_args.dart';
 import '../../data/models/user_profile.dart';
 import '../../data/user_profile_controller.dart';
 import '../../features/checkin/checkin_screen.dart';
-import '../../features/home/home_screen.dart';
 import '../../features/onboarding/welcome_screen.dart';
 import '../../features/quest_active/quest_active_screen.dart';
 import '../../features/reward/reward_screen.dart';
+import '../../features/shell/home_shell.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -23,7 +23,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(path: '/quest_active', builder: (context, state) => const QuestActiveScreen()),
       GoRoute(path: '/reward', builder: (context, state) => const RewardScreen()),
-      GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+      GoRoute(path: '/home', builder: (context, state) => const HomeShell()),
     ],
   );
 });

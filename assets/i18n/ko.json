@@ -1,21 +1,17 @@
 {
   "app.title": "태스크퀘스트",
-
   "common.button.back_to_home": "홈으로 돌아가기",
   "common.button.next": "다음",
   "common.tab.home": "홈",
   "common.tab.my_page": "마이페이지",
   "common.tab.settings": "설정",
-
   "stat.body": "체력",
   "stat.mind": "지력",
   "stat.life": "생활력",
-
   "welcome.mascot_greeting": "만나서 반가워! 나와 함께 작은 한 걸음부터 시작해볼까?",
   "welcome.tutorial_quest_title": "첫걸음",
   "welcome.tutorial_quest_description": "앱 사용법을 직접 움직이며 익히는 퀘스트야.",
   "welcome.accept_button": "퀘스트 수주하기",
-
   "checkin.mood_prompt": "지금 기분은 어때?",
   "checkin.mood_reaction_1": "그렇구나, 힘들겠다. 무리하지 않아도 괜찮아.",
   "checkin.mood_reaction_2": "조금 기운이 없구나. 천천히 가자.",
@@ -24,12 +20,10 @@
   "checkin.mood_reaction_5": "최고의 컨디션이네! 그 기세로!",
   "checkin.tutorial_guide": "여기서 지금 기분을 알려주는 거야",
   "checkin.confirm_button": "수주 확정",
-
   "quest_active.title": "퀘스트 진행 중",
   "quest_active.remaining_time_label": "남은 시간",
   "quest_active.tutorial_guide": "앱을 닫아도 되고, 기다려도 괜찮아",
   "quest_active.watch_ad_skip": "광고 보고 건너뛰기",
-
   "reward.did_it_button": "해냈어!",
   "reward.mood_prompt": "끝난 지금 기분은?",
   "reward.achievement_label": "얼마나 해냈어?",
@@ -39,13 +33,31 @@
   "reward.back_to_home": "홈으로 돌아가기",
   "reward.result_title": "보상 결과",
   "reward.exp_gained": "{stat} 경험치 +{amount}",
-
   "home.greeting": "어서 와!",
   "home.recommended_title": "추천 퀘스트",
   "home.quest_card_duration": "{minutes}분",
-
   "quest.tutorial.name": "첫걸음",
   "quest.sample.morning_stretch.name": "아침 스트레칭",
   "quest.sample.reading.name": "10분 독서",
-  "quest.sample.room_cleanup.name": "주변 정리"
+  "quest.sample.room_cleanup.name": "주변 정리",
+  "my_page.tab.status": "스테이터스",
+  "my_page.tab.reflection": "돌아보기",
+  "my_page.total_level_label": "합계 레벨",
+  "my_page.reflection.empty": "아직 기록이 없어요",
+  "my_page.reflection.free_notice": "무료 이용자는 최근 7일치만 볼 수 있어요",
+  "my_page.reflection.achievement_label": "달성도 {score}/10",
+  "settings.section.sound": "음량",
+  "settings.volume_bgm": "BGM",
+  "settings.volume_se": "효과음",
+  "settings.section.notification": "알림",
+  "settings.notification_toggle": "알림 받기",
+  "settings.section.language": "언어",
+  "settings.section.subscription": "구독",
+  "settings.subscription_manage": "관리하기",
+  "settings.not_ready_message": "이 기능은 준비 중이에요",
+  "settings.section.account": "계정・데이터",
+  "settings.account_data_management": "데이터 관리",
+  "settings.section.legal": "이용약관・개인정보",
+  "settings.legal.privacy_policy": "개인정보처리방침",
+  "settings.legal.terms": "이용약관"
 }

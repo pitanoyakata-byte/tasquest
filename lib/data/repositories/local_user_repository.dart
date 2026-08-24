@@ -31,6 +31,12 @@ class LocalUserRepository implements UserRepository {
     await prefs.setString('$_storageKey.$uid', jsonEncode(_toJson(profile)));
   }
 
+  @override
+  Future<List<QuestInstance>> fetchQuestHistory(String uid, {DateTime? since}) async {
+    // ローカル実装は直近の受注中クエストしか保持しないため、履歴機能はFirestore版のみ提供する。
+    return const [];
+  }
+
   Map<String, dynamic> _toJson(UserProfile profile) {
     final active = profile.activeQuestInstance;
     return {

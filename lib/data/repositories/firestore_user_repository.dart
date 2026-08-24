@@ -76,6 +76,19 @@ class FirestoreUserRepository implements UserRepository {
     }
   }
 
+  @override
+  Future<List<QuestInstance>> fetchQuestHistory(String uid, {DateTime? since}) async {
+    Query<Map<String, dynamic>> query = _questInstances(uid)
+        .where('completed', isEqualTo: true)
+        .orderBy('acceptedAt', descending: true)
+        .limit(50);
+    if (since != null) {
+      query = query.where('acceptedAt', isGreaterThanOrEqualTo: Timestamp.fromDate(since));
+    }
+    final snapshot = await query.get();
+    return snapshot.docs.map((doc) => _instanceFromDoc(doc.id, doc.data())).toList();
+  }
+
   Map<String, dynamic> _instanceToDoc(QuestInstance instance) => {
         'questId': instance.questId,
         'questNameTextId': instance.questNameTextId,

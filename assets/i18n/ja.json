@@ -1,21 +1,17 @@
 {
   "app.title": "タスクエスト",
-
   "common.button.back_to_home": "ホームに戻る",
   "common.button.next": "次へ",
   "common.tab.home": "ホーム",
   "common.tab.my_page": "マイページ",
   "common.tab.settings": "設定",
-
   "stat.body": "体力",
   "stat.mind": "知力",
   "stat.life": "生活力",
-
   "welcome.mascot_greeting": "はじめまして！わたしと一緒に、小さな一歩から始めてみよう。",
   "welcome.tutorial_quest_title": "はじめの一歩",
   "welcome.tutorial_quest_description": "アプリの使い方を、実際に体を動かしながら覚えていくクエストだよ。",
   "welcome.accept_button": "クエストを受注する",
-
   "checkin.mood_prompt": "今の気分を教えてね",
   "checkin.mood_reaction_1": "そっか、しんどいね。無理しなくて大丈夫だよ。",
   "checkin.mood_reaction_2": "ちょっと元気ないかな。ゆっくりいこう。",
@@ -24,12 +20,10 @@
   "checkin.mood_reaction_5": "絶好調じゃん！その調子！",
   "checkin.tutorial_guide": "これは今の気分を教えるところだよ",
   "checkin.confirm_button": "受注確定",
-
   "quest_active.title": "クエスト実行中",
   "quest_active.remaining_time_label": "残り時間",
   "quest_active.tutorial_guide": "アプリを閉じてもいいし、待っていてもいいよ",
   "quest_active.watch_ad_skip": "広告を見てスキップ",
-
   "reward.did_it_button": "やった！",
   "reward.mood_prompt": "終わった今の気分は？",
   "reward.achievement_label": "どのくらいできた？",
@@ -39,13 +33,31 @@
   "reward.back_to_home": "ホームに戻る",
   "reward.result_title": "報酬結果",
   "reward.exp_gained": "{stat}の経験値 +{amount}",
-
   "home.greeting": "おかえりなさい！",
   "home.recommended_title": "おすすめのクエスト",
   "home.quest_card_duration": "{minutes}分",
-
   "quest.tutorial.name": "はじめの一歩",
   "quest.sample.morning_stretch.name": "朝のストレッチ",
   "quest.sample.reading.name": "10分読書",
-  "quest.sample.room_cleanup.name": "身の回りの片付け"
+  "quest.sample.room_cleanup.name": "身の回りの片付け",
+  "my_page.tab.status": "ステータス",
+  "my_page.tab.reflection": "振り返り",
+  "my_page.total_level_label": "合計レベル",
+  "my_page.reflection.empty": "まだ記録がありません",
+  "my_page.reflection.free_notice": "無課金では直近1週間分のみ表示されます",
+  "my_page.reflection.achievement_label": "達成度 {score}/10",
+  "settings.section.sound": "音量",
+  "settings.volume_bgm": "BGM",
+  "settings.volume_se": "効果音",
+  "settings.section.notification": "通知",
+  "settings.notification_toggle": "通知を受け取る",
+  "settings.section.language": "言語",
+  "settings.section.subscription": "サブスクリプション",
+  "settings.subscription_manage": "管理する",
+  "settings.not_ready_message": "この機能は準備中です",
+  "settings.section.account": "アカウント・データ",
+  "settings.account_data_management": "データ管理",
+  "settings.section.legal": "利用規約・プライバシー",
+  "settings.legal.privacy_policy": "プライバシーポリシー",
+  "settings.legal.terms": "利用規約"
 }
